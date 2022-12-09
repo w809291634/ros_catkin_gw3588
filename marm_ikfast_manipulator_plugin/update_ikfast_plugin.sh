@@ -1,0 +1,1 @@
+rosrun moveit_kinematics create_ikfast_moveit_plugin.py marm manipulator marm_ikfast_manipulator_plugin /home/zonesion/catkin_ws/src/marm_ikfast_manipulator_plugin/src/marm_manipulator_ikfast_solver.cpp

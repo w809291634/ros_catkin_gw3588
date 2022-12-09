@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot name="mbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- PROPERTY LIST -->
+  <xacro:property name="M_PI" value="3.1415926"/>
+  <xacro:property name="m_mass" value="0.134028102660835"/>
+
+  <material name="gray">
+    <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
+  </material>
+
+  <!-- Macro for robot car -->
+  <xacro:macro name="car" params="link_name ox oy oz i_xx i_xy i_xz i_yy i_yz i_zz joint_name j_ox j_oy j_oz j_rx j_ry j_rz ax ay az">
+
+    <link name="${link_name}">
+      <inertial>
+        <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0" />
+        <mass
+          value="${m_mass}" />
+      <inertia
+        ixx="${i_xx}"
+        ixy="${i_xy}"
+        ixz="${i_xz}"
+        iyy="${i_yy}"
+        iyz="${i_yz}"
+        izz="${i_zz}" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://mbot/meshes/${link_name}.STL" />
+        </geometry>
+        <material name='gray' />
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://mbot/meshes/${link_name}.STL" />
+        </geometry>
+      </collision>		
+    </link>
+      
+    <joint name="${joint_name}" type="continuous">
+      <origin xyz="${j_ox} ${j_oy} ${j_oz}" rpy="${j_rx} ${j_ry} ${j_rz}" />
+      <parent link="base_link" />
+      <child  link="${link_name}" />
+      <axis xyz="${ax} ${ay} ${az}" />
+    </joint>
+  </xacro:macro>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.069332994460208 0.00159168387635345 0.0653887866392719"
+        rpy="0 0 0" />
+      <mass
+        value="2.33550924194226" />
+      <inertia
+        ixx="0.0099328731586153"
+        ixy="3.62130593535287E-06"
+        ixz="-0.00104555810393269"
+        iyy="0.00497792027172909"
+        iyz="6.12890883113497E-07"
+        izz="0.0121809615610289" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mbot/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://mbot/meshes/base_link.STL" />
+        </geometry>
+      </collision>
+  </link>
+  <xacro:car link_name="link_1" ox="0" oy="0" oz="-0.00101102878492629" i_xx="7.13099731122913E-05" i_xy="1.17771253350979E-21" i_xz="2.40976141297024E-21" i_yy="7.13099731122913E-05" i_yz="-1.20943874309478E-21" i_zz="0.000109865960683711" joint_name="joint_1" j_ox="0.10653" j_oy="-0.098216" j_oz="-0.1" j_rx="${M_PI/2}" j_ry="0" j_rz="0" ax="0" ay="0" az="-1" />  
+  <xacro:car link_name="link_2" ox="0" oy="0" oz="-0.00101102878492629" i_xx="7.13099731122913E-05" i_xy="1.17752320689254E-21" i_xz="2.43988203833033E-21" i_yy="7.13099731122913E-05" i_yz="-6.47128446607132E-22" i_zz="0.000109865960683711" joint_name="joint_2" j_ox="0.10653" j_oy="0.098216" j_oz="-0.1"  j_rx="${M_PI/2}" j_ry="0" j_rz="0" ax="0" ay="0" az="-1" />  
+  <xacro:car link_name="link_3" ox="1.38777878078145E-17" oy="0" oz="-0.00101102878492629" i_xx="7.13099731122913E-05" i_xy="1.17757369399048E-21" i_xz="2.39149875275608E-21" i_yy="7.13099731122913E-05" i_yz="-5.2892272939433E-22" i_zz="0.000109865960683711" joint_name="joint_3" j_ox="-0.1054579162598" j_oy="-0.0982163407908" j_oz="-0.1" j_rx="${M_PI/2}" j_ry="0" j_rz="0" ax="0" ay="0" az="-1" />  
+  <xacro:car link_name="link_4" ox="1.38777878078145E-17" oy="0" oz="-0.00101102878492629" i_xx="7.13099731122913E-05" i_xy="1.17763680286289E-21" i_xz="2.39598028827714E-21" i_yy="7.13099731122913E-05" i_yz="-1.14719127566941E-21" i_zz="0.000109865960683711" joint_name="joint_4" j_ox="-0.1054579162598" j_oy="0.0982163407908" j_oz="-0.1"  j_rx="${M_PI/2}" j_ry="0" j_rz="0" ax="0" ay="0" az="-1" />  
+  <xacro:car link_name="link_5" ox="-0.000102737325545804" oy="-0.0229999910083138" oz="0.0373923165167594" i_xx="3.70020626967E-05" i_xy="-2.93743683504277E-13" i_xz="4.14494818687051E-08" i_yy="7.11271492032382E-06" i_yz="9.3759002706371E-12" i_zz="3.30321009897597E-05" joint_name="joint_5" j_ox="0.1554035339355" j_oy="0.025507624634405" j_oz="0.016" j_rx="0" j_ry="0" j_rz="0" ax="0" ay="1" az="0" />  
+</robot>

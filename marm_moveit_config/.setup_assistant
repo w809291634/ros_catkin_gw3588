@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: marm_base
+    relative_path: urdf/marm.urdf
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/marm.srdf
+  CONFIG:
+    author_name: support
+    author_email: support@zonesion.com.cn
+    generated_timestamp: 1636507493

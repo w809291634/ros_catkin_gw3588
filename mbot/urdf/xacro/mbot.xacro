@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find mbot)/urdf/xacro/mbot_base.xacro" />
+  <xacro:include filename="$(find mbot)/urdf/xacro/sensors/camera.xacro" />
+  <xacro:include filename="$(find mbot)/urdf/xacro/sensors/kinect.xacro" />
+  <xacro:include filename="$(find mbot)/urdf/xacro/sensors/lidar.xacro" />
+	
+  <xacro:property name="camera_offset_x" value="0.10" />
+  <xacro:property name="camera_offset_y" value="0" />
+  <xacro:property name="camera_offset_z" value="0.12" />
+
+  <xacro:property name="kinect_offset_x" value="0.17" />
+  <xacro:property name="kinect_offset_y" value="0" />
+  <xacro:property name="kinect_offset_z" value="0.06" />
+	
+  <xacro:property name="rplidar_offset_x" value="-0.03" />
+  <xacro:property name="rplidar_offset_y" value="0" />
+  <xacro:property name="rplidar_offset_z" value="-0.05" /> 
+	
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="${camera_offset_x} ${camera_offset_y} ${camera_offset_z}" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+	
+  <joint name="kinect_joint" type="fixed">
+    <origin xyz="${kinect_offset_x} ${kinect_offset_y} ${kinect_offset_z}" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="kinect_link"/>
+  </joint>
+
+  <joint name="rplidar_joint" type="fixed">
+    <origin xyz="${rplidar_offset_x} ${rplidar_offset_y} ${rplidar_offset_z}" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+  </joint>
+
+  <xacro:usb_camera prefix="camera"/>
+  <xacro:kinect_camera prefix="kinect"/>
+  <xacro:rplidar prefix="laser"/>
+  
+</robot>

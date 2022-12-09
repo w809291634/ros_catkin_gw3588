@@ -1,0 +1,23 @@
+global_costmap:
+   global_frame: map
+   robot_base_frame: base_link #base_footprint
+   update_frequency:  1 
+   publish_frequency: 1 
+   static_map: true
+   rolling_window: false
+   resolution: 0.02
+   transform_tolerance: 1.0
+   inflation_radius: 0.3
+   map_type: costmap
+   #observation_sources: scan
+   #scan: {data_type: LaserScan, topic: /scan, marking: true, clearing: true, expected_update_rate: 0}
+   #observation_sources: scan
+
+   #scan: {}
+
+   plugins:
+     - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+     - {name: lidar_layer, type: "costmap_2d::VoxelLayer"}
+     #- {name: sonar_layer,   type: "range_sensor_layer::RangeSensorLayer"}
+     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+

@@ -1,0 +1,12 @@
+<launch>
+  <node name="serial_node" pkg = "rosserial_python" type = "serial_node.py"  output="screen">
+    <param name="port"      type="string" value="/dev/ttyXCar"/>
+    <param name="baud" 	type="string" value="115200"/>
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_sonar1" args="0.15 0.1 0.07 0 0 0 /base_link /sonar1 50" />
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_sonar2" args="-0.15 0 0.03 3.1415926 0 0  /base_link /sonar2 50" />
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser1" args="0.15 -0.1 0.07 0 0 0 /base_link /laser1 50" />
+  
+  <node name="arm_tcp_server_controller" pkg="marm_controller" type="arm_tcp_server_controller.py"  output="screen"/>
+</launch>

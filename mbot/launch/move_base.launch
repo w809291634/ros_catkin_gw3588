@@ -1,0 +1,11 @@
+<launch>
+  <arg name="odom_model_type" default="diff"/>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <rosparam file="$(find mbot)/config/mbot/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find mbot)/config/mbot/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mbot)/config/mbot/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mbot)/config/mbot/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mbot)/config/mbot/dwa_local_planner_params_$(arg odom_model_type).yaml" command="load" />
+  </node>
+  
+</launch>

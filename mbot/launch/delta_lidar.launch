@@ -1,0 +1,13 @@
+<launch>
+  <node name="delta_lidar"    pkg="delta_lidar"  type="delta_lidar_node" >
+    <param name="serial_port"      type="string" value="/dev/ttyRadar"/>
+    <param name="serial_baudrate"  type="int" value="115200"/>
+    <param name="frame_id"         type="string" value="laser"/>
+    <param name="inverted"         type="bool" value="false"/>
+    <param name="angle_compensate" type="bool" value="true"/>
+    <param name="rotationl_speed" type="int" value="10"/>
+  </node>
+
+  <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="-0.04 0 -0.0 1.047 0 0 /base_link /laser 50" /-->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="-0.04 0 -0.0 0.65 0 0 /base_link /laser 50" />
+</launch>

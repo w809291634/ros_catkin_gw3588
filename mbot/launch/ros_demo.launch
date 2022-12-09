@@ -1,0 +1,42 @@
+<launch>
+  <include file="$(find mbot)/launch/serial-node.launch"/>
+  <include file="$(find mbot)/launch/delta_lidar.launch"/>
+
+  <!-- 设置地图的配置文件 -->
+  <arg name="map" default="map_gmapping.yaml" />
+
+  <!-- 运行地图服务器，并且加载设置的地图-->
+  <node name="map_servers" pkg="map_server" type="map_server" args="$(find mbot)/maps/$(arg map)"/>
+
+  <!-- 启动move_base -->
+  <include file="$(find mbot)/launch/move_base.launch"/>
+    
+  <!-- 启动AMCL节点 -->
+  <include file="$(find mbot)/launch/amcl.launch" />
+
+  <node name="rosCarControl" pkg="mbot" type="ros_car_control_api.py" output="screen" />
+  <!-- <node name="rosCarAvoidObstacles" pkg="mbot" type="ros_car_avoid_obstacles.py" /> -->
+
+
+  <!-- 启动websocket节点，供App调用 -->  
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+  <node name="rosDroid" pkg="mbot" type="rosDroid.py" output="screen">
+    <param name="name" value="XCarROS-nv"/>
+  </node>
+	
+  <!-- 加载机器人模型参数 -->
+  <arg name="model" default="$(find xacro)/xacro --inorder '$(find mbot)/urdf/xacro/mbot.xacro'" />
+  <param name="robot_description" command="$(arg model)" />
+
+  <!-- 运行joint_state_publisher节点，发布机器人的关节状态  -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <!-- 运行robot_state_publisher节点，发布tf  -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
+    <param name="publish_frequency" type="double" value="5.0" />
+  </node>
+    
+  <!-- 运行rviz可视化界面 -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mbot)/rviz/nav.rviz"/>
+
+</launch>

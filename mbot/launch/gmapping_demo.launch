@@ -1,0 +1,28 @@
+<launch>
+  <include file="$(find mbot)/launch/serial-node.launch"/>
+  <include file="$(find mbot)/launch/delta_lidar.launch"/>
+
+  <!-- 让Gampping延时启动 -->   
+  <node name="timed_roslaunch" pkg="mbot" type="timed_roslaunch.sh"
+    args="15 mbot gmapping.launch"
+    output="screen"/>
+
+  <!-- 键盘控制 -->  
+  <include file="$(find mbot)/launch/mbot_teleop.launch"/>
+	
+  <!-- 加载机器人模型参数 -->
+  <arg name="model" default="$(find xacro)/xacro --inorder '$(find mbot)/urdf/xacro/mbot.xacro'" />
+  <param name="robot_description" command="$(arg model)" />
+
+  <!-- 运行joint_state_publisher节点，发布机器人的关节状态  -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <!-- 运行robot_state_publisher节点，发布tf  -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
+    <param name="publish_frequency" type="double" value="5.0" />
+  </node>
+    
+  <!-- 运行rviz可视化界面 -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mbot)/rviz/nav.rviz"/>
+
+</launch>

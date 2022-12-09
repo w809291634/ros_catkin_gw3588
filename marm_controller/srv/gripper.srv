@@ -1,0 +1,11 @@
+int16 data
+
+---
+
+# response constants
+int16 SUCCESS        = 0
+int16 ERROR          = 1
+int16 TIMEOUT        = 2
+
+# result
+int16   result

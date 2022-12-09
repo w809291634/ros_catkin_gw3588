@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=install
+Comment=
+Exec=bash -c 'chmod +x /home/zonesion/catkin_ws/src/mbot/bin/*' 
+Icon=
+Path=
+Terminal=true
+StartupNotify=false
